@@ -1,0 +1,30 @@
+name: Add Checklist to PR
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  add-checklist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Create Checklist Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          message: |
+            ## Code Review Checklist
+
+            Please review the following checklist before submitting this pull request:
+
+            - [ ] Code follows coding conventions
+            - [ ] Code is well-documented
+            - [ ] Code passes all tests
+            - [ ] Code is reviewed by at least two developers
+
+            Please mark each item when it's complete.

@@ -1,8 +1,10 @@
 
 def main():
     print('This is a test repo!')
-    password = 'pass123!'
-    print(password)
+    password1 = 'pass1234!'
+    password = 'kjshkshskh1215'
+
+    print(password1)
 
 
 if __name__ == "__main__":
