@@ -1,0 +1,46 @@
+name: Bandit Security Check
+
+on:
+  pull_request:
+    paths:
+      - '**/*.py' # Specify the path to Python files in your repository
+
+jobs:
+  bandit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Bandit
+        id: bandit
+        run: bandit -r .
+      
+      - name: Check Bandit Results
+        run: |
+          if grep -q "Issue: HIGH" bandit.txt; then
+            echo "Bandit found HIGH severity issues."
+            echo "::set-output name=flaws_found::true"
+          else
+            echo "Bandit did not find HIGH severity issues."
+            echo "::set-output name=flaws_found::false"
+          fi
+        continue-on-error: true
+
+      - name: Set Check Status
+        run: |
+          if [[ ${{ steps.bandit.outputs.flaws_found }} == "true" ]]; then
+            echo "::error::Bandit found HIGH severity issues."
+            exit 1
+          else
+            echo "::success::Bandit did not find HIGH severity issues."
+          fi
