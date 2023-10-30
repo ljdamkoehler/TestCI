@@ -2,8 +2,8 @@ name: Post PR Checklist
 
 on:
   pull_request:
-    # types:
-    #   - opened
+    types:
+      - opened
 
 jobs:
   post_checklist:

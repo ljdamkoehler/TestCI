@@ -3,47 +3,32 @@ import requests
 import sys
 
 def main():
-    # Get the PR description
     pr_number = sys.argv[1]
-    print(pr_number)
-    print(f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/issues/{pr_number}/comments")
+   
     response = requests.get(
         f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/issues/{pr_number}/comments",
         headers={"Authorization": f"token {os.environ['GITHUB_TOKEN']}"}
     )
     if response.status_code == 200:
         pr_data = response.json()
-        print('Data!!!')
-        print('--------------------')
-        print(pr_data)
-        pr_description = pr_data.get("body", "")
     else:
         print(f"Failed to fetch PR details: Status code {response.status_code}")
-    print('Desription +++++++++++++++++++++++++++++++++++')
-    print(pr_description)
-    # Define the checklist items
-    checklist_items = [
-        "Code follows coding conventions",
-        "Code is well-documented",
-        "Code passes all tests",
-        "Code is reviewed by at least two developers",
-    ]
+        sys.exit(1)
+    
+    check_list_comment = None
 
-    # Initialize a list to collect unchecked items
-    unchecked_items = []
+    for comment in pr_data:
+        if '## Code Review Checklist' in comment['body']:
+            check_list_comment = comment
+            break
 
-    # Check if all checklist items are checked
-    for item in checklist_items:
-        if f"- [ ] {item}" not in pr_description:
-            unchecked_items.append(item)
+    if not check_list_comment:
+        sys.exit(1)
 
-    if not unchecked_items:
-        print("All checklist items are checked. PR is ready to merge.")
-    else:
-        print("Not all checklist items are checked. Please complete the following:")
-        for item in unchecked_items:
-            print(f"- {item}")
-        exit(1)
+
+    if '- [ ]' in check_list_comment['body']:
+        print('Not all code review items are checked!')
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
