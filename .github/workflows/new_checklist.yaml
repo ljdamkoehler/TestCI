@@ -16,4 +16,4 @@ jobs:
       - name: Post PR Checklist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python post_checklist.py
+        run: python post_checklist.py ${{ github.event.pull_request.number }}

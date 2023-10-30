@@ -1,9 +1,11 @@
 import os
-requests = __import__('requests')
+import sys
+import requests
+
 base_url = "https://api.github.com/repos"
 repo_owner = "ljdamkoehler"
 repo_name = "TestCI"
-pr_number = os.getenv('GITHUB_REF').split('/')[-1]  # Extract PR number from GITHUB_REF
+pr_number = sys.argv[1]
 checklist_file = "checklist.txt"
 
 # Read the checklist from the file
@@ -15,6 +17,8 @@ comment_body = checklist
 
 # Create the comment via the GitHub API
 url = f"{base_url}/{repo_owner}/{repo_name}/issues/{pr_number}/comments"
+print('URL!!!')
+print(url)
 headers = {
     "Authorization": f"token {os.getenv('GITHUB_TOKEN')}",
     "Content-Type": "application/json"
