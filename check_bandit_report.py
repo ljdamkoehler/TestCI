@@ -4,7 +4,8 @@ import sys
 def check_bandit_report(report_file):
     with open(report_file, 'r') as report:
         data = json.load(report)
-
+        print('The report has been opened!!')
+        print(data)
         if data['results']:
             print("Bandit issues found:")
             for result in data['results']:
