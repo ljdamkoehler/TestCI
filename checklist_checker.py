@@ -13,6 +13,9 @@ def main():
     )
     if response.status_code == 200:
         pr_data = response.json()
+        print('Data!!!')
+        print('--------------------')
+        print(pr_data)
         pr_description = pr_data.get("body", "")
     else:
         print(f"Failed to fetch PR details: Status code {response.status_code}")
