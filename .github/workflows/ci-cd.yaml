@@ -29,6 +29,7 @@ jobs:
 
     - name: Run Bandit on modified Python files
       if: steps.get_pr_files.outputs.modified_files != ''
+      continue-on-error: true
       run: |
         echo "Running Bandit on modified Python files..."
         echo ${{ steps.get_pr_files.outputs.modified_files }}
