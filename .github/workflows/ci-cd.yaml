@@ -1,25 +1,47 @@
-name: Bandit Security Check
+name: Run Bandit on PR changes
 
 on:
   pull_request:
     paths:
-      - '**/*.py'
+      - '**.py'
 
 jobs:
   bandit:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Check out code
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9 # Adjust the Python version as needed
+    - name: Get the list of modified Python files
+      id: get_pr_files
+      run: |
+        echo "Checking for modified Python files..."
+        echo "Base branch: ${{ github.base_ref }}"
+        echo "Head branch: ${{ github.head_ref }}"
+        changed_files=$(git diff --name-only ${{ github.base_ref }}...${{ github.head_ref }} -- '*.py')
+        echo "::set-output name=files::$changed_files"
+        if [ -n "$changed_files" ]; then
+          echo "Modified Python files found:"
+          echo "$changed_files"
+        else
+          echo "No modified Python files found."
+        fi
+      shell: bash
 
-      - name: Install Bandit
-        run: pip install bandit
+    - name: Install Bandit
+      run: |
+        echo "Installing Bandit..."
+        pip install bandit
+      shell: bash
 
-      - name: Run Bandit
-        run: bandit -r .
+    - name: Run Bandit on modified Python files
+      if: steps.get_pr_files.outputs.files != ''
+      run: |
+        echo "Running Bandit on modified Python files..."
+        for file in ${{ steps.get_pr_files.outputs.files }}; do
+          echo "Scanning $file..."
+          bandit -r -ll -ii "$file"
+        done
+      shell: bash
+
