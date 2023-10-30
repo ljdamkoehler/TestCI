@@ -1,0 +1,10 @@
+## Code Review Checklist
+
+Please review the following checklist before submitting this pull request:
+
+- [ ] Code follows coding conventions
+- [ ] Code is well-documented
+- [ ] Code passes all tests
+- [ ] Code is reviewed by at least two developers
+
+Please mark each item when it's complete.
