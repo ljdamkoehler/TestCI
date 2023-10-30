@@ -4,7 +4,11 @@ def main():
     password1 = 'pass1234!'
     password = 'kjshkshskh1215'
 
-    print(password1)
+    try:
+        print(password1)
+    except:
+        pass
+
 
 
 if __name__ == "__main__":
