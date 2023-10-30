@@ -6,9 +6,9 @@ def main():
     # Get the PR description
     pr_number = sys.argv[1]
     print(pr_number)
-    print(f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{pr_number}")
+    print(f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/issues/{pr_number}/comments")
     response = requests.get(
-        f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/pulls/{pr_number}",
+        f"https://api.github.com/repos/{os.environ['GITHUB_REPOSITORY']}/issues/{pr_number}/comments",
         headers={"Authorization": f"token {os.environ['GITHUB_TOKEN']}"}
     )
     if response.status_code == 200:
