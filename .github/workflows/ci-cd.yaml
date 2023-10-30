@@ -37,5 +37,5 @@ jobs:
 
 
     - name: Check Bandit report for issues
-      run: python check_bandit_reports.py
+      run: python check_bandit_report.py
 
