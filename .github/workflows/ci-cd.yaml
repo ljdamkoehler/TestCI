@@ -33,3 +33,7 @@ jobs:
         echo "Running Bandit on modified Python files..."
         bandit -r -ll -ii ${{ steps.get_pr_files.outputs.modified_files }}
       shell: bash
+
+      - name: Check Bandit report for issues
+        run: python check_bandit_report.py
+
