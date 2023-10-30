@@ -13,9 +13,7 @@ def get_modified_python_files():
     modified_files = [f['filename'] for f in response.json() if f['filename'].endswith('.py')]
     return modified_files
 
-if __name__ == "__main":
+if __name__ == "__main__":
     modified_files = get_modified_python_files()
-    with open("modified_files.txt", "w") as file:
-        for file_path in modified_files:
-            file.write(file_path + "\n")
-
+    # Print the list of modified files separated by spaces
+    print(" ".join(modified_files))
