@@ -32,10 +32,10 @@ jobs:
       run: |
         echo "Running Bandit on modified Python files..."
         echo ${{ steps.get_pr_files.outputs.modified_files }}
-        bandit -r -ll -ii -f json -o bandit_report.json ${{ steps.get_pr_files.outputs.modified_files }}
+        bandit -r -f json -o bandit_report.json ${{ steps.get_pr_files.outputs.modified_files }}
       shell: bash
 
 
     - name: Check Bandit report for issues
-      run: python check_bandit_report.py
+      run: python check_bandit_reports.py
 
