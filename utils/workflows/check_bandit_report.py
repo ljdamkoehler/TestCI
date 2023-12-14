@@ -31,8 +31,8 @@ def main():
             f"Filename: {result['filename']}",
             f"Line: {result['line_number']}",
             f"Issue: {result['issue_text']}",
-            f"Issue Link: {result.get('link', 'None')}",
-            f"Bandit Link: {result.get('link', 'None')}",
+            f"Issue Link: {result['issue_cwe']['link']}",
+            f"Bandit Link: {result['more_info']}",
             '-----------------------'
         )
         for issue in bandit_issue_tuple:
@@ -49,6 +49,7 @@ def main():
         "Authorization": f"token {os.getenv('GITHUB_TOKEN')}",
         "Content-Type": "application/json"
         }
+        print(pr_str)
         payload = {
             "body": pr_str
         }
