@@ -12,6 +12,7 @@ def main():
         if data['results']:
             print("Bandit issues found:")
             for result in data['results']:
+                print('result')
                 print(f"Severity: {result['issue_severity']}")
                 print(f"Confidence: {result['issue_confidence']}")
                 print(f"Filename: {result['filename']}")

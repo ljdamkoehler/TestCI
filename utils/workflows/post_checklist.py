@@ -14,9 +14,12 @@ import requests
 
 def main():
     # Define variables for the rpa-automations GitHub repo.
+    # base_url = "https://api.github.com/repos"
+    # repo_owner = "ccisystems"
+    # repo_name = "rpa-automations"
     base_url = "https://api.github.com/repos"
-    repo_owner = "ccisystems"
-    repo_name = "rpa-automations"
+    repo_owner = "ljdamkoehler"
+    repo_name = "TestCI"
     # The PR number needs to be included as the first script arg when calling this script.
     try:
         pr_number = sys.argv[1]
