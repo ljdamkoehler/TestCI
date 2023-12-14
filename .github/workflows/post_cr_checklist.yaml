@@ -11,7 +11,7 @@ name: Post CR Checklist
 on:
   pull_request:
     types:
-      - synchronize
+      - open
 
 jobs:
   post_checklist:
