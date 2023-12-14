@@ -1,4 +1,9 @@
-name: Check Checklist
+# Luke Damkoehler for CCI Systems (12/14/2023):
+# This pipeline calls a python script that will pass 
+# if all items in the code review checklist are checked.
+# Otherwise it will fail.
+
+name: Check Code Review Checklist
 
 on:
   pull_request:

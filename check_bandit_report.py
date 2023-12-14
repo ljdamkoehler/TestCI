@@ -1,11 +1,14 @@
+"""
+Luke Damkoehler for CCI Systems (12/14/2023):
+"""
+
 import json
 import sys
 
-def check_bandit_report(report_file):
+def main():
+    report_file = 'bandit_report.json'
     with open(report_file, 'r') as report:
         data = json.load(report)
-        print('The report has been opened!!')
-        print(data)
         if data['results']:
             print("Bandit issues found:")
             for result in data['results']:
@@ -15,7 +18,9 @@ def check_bandit_report(report_file):
                 print(f"Line: {result['line_number']}")
                 print(f"Test ID: {result['test_id']}")
                 print(f"Issue: {result['issue_text']}")
-            sys.exit(1)  # Exit with a non-zero status code to indicate failure
+            sys.exit(1)
+        else:
+            print('No Bandit issues were found!')
 
 if __name__ == "__main__":
-    check_bandit_report("bandit_report.json")
+    main()

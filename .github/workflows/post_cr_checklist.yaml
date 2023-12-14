@@ -1,0 +1,27 @@
+# Luke Damkoehler for CCI Systems (12/14/2023):
+# This pipeline calls a python script that posts 
+# the contents of "utils/workflow/pr_checklist.txt" to
+# the given PR. This only happens once, when the PR is
+# first created.
+
+name: Post CR Checklist
+
+# Only add the checklist when the PR is first opened -- not on
+# any subsequent updates.
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  post_checklist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Post CR Checklist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python post_checklist.py ${{ github.event.pull_request.number }}

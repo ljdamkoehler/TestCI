@@ -1,3 +1,7 @@
+"""
+Luke Damkoehler for CCI Systems (10/30/2023):
+"""
+
 import os
 import json
 import requests
@@ -15,5 +19,4 @@ def get_modified_python_files():
 
 if __name__ == "__main__":
     modified_files = get_modified_python_files()
-    # Print the list of modified files separated by spaces
     print(" ".join(modified_files))
