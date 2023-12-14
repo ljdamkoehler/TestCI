@@ -51,7 +51,7 @@ def main():
         }
         print(pr_str)
         payload = {
-            "body": f"```\n{pr_str}\n```"
+            "body": f"## Bandit Security Issues \n ```\n{pr_str}\n```"
         }
 
         response = requests.post(url, headers=headers, json=payload)
