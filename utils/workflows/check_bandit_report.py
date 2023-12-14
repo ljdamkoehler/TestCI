@@ -38,8 +38,7 @@ def main():
         for issue in bandit_issue_tuple:
             bandit_issue_list.append(issue)
     if bandit_issue_list:
-        bandit_str = "\n".join(bandit_issue_list)
-        pr_str = bandit_str 
+        pr_str = "\n".join(bandit_issue_list)
         base_url = "https://api.github.com/repos"
         repo_owner = "ljdamkoehler"
         repo_name = "TestCI"
