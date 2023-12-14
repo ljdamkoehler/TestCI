@@ -1,6 +1,6 @@
 """
 Luke Damkoehler for CCI Systems (10/30/2023): This script 
-posts the contents of utils/workflow/pr_checklist.txt as a
+posts the contents of utils/workflows/pr_checklist.txt as a
 comment on a PR. It is meant to be called by a GitHub workflow
 job. Needed environmental variables will only be available in 
 that environment. This will not work locally. The PR number needs 
@@ -23,7 +23,7 @@ def main():
     except Exception as e:
         raise Exception ('The PR number needs to be included as the first script arg when calling this script')
     # Open the text file containing the checklist.
-    checklist_file = "utils/workflow/pr_checklist.txt"
+    checklist_file = "utils/workflows/pr_checklist.txt"
     with open(checklist_file, "r") as file:
         checklist = file.read()
     # Post the checklist to the PR via the GitHub API.
