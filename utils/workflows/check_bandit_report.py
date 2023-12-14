@@ -47,7 +47,7 @@ def main():
         url = f"{base_url}/{repo_owner}/{repo_name}/issues/{pr_number}/comments"
         headers = {
         "Authorization": f"token {os.getenv('GITHUB_TOKEN')}",
-        "Content-Type": "application/json"
+        "Content-Type": "text"
         }
         print(pr_str)
         payload = {
