@@ -39,7 +39,7 @@ def main():
             bandit_issue_list.append(issue)
     if bandit_issue_list:
         bandit_str = "\n".join(bandit_issue_list)
-        pr_str = '### Bandit Security Issues \n' + bandit_str 
+        pr_str = 'Bandit Security Issues \n' + bandit_str 
         base_url = "https://api.github.com/repos"
         repo_owner = "ljdamkoehler"
         repo_name = "TestCI"
