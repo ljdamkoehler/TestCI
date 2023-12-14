@@ -19,7 +19,7 @@ def main():
     
     block_pr = False 
 
-    bandit_issue_list = []
+    bandit_issue_list = ['### Bandit Security Issues']
     if not data['results']:
         return
     for result in data['results']:
@@ -35,13 +35,10 @@ def main():
             f"Bandit Link: {result.get('link', 'None')}",
             '-----------------------'
         )
-        bandit_issue_list.append(bandit_issue_tuple)
-    if bandit_issue_list:
-        bandit_issue_string_list = [
-            '### Bandit Security Issues'
-        ]
-        bandit_issue_string_list.extend(bandit_issue_list)
-        pr_str = "\n".join(bandit_issue_string_list)
+        for issue in bandit_issue_tuple:
+            bandit_issue_list.append(issue)
+    if len(bandit_issue_list) > 1:
+        pr_str = "\n".join(bandit_issue_list)
         base_url = "https://api.github.com/repos"
         repo_owner = "ljdamkoehler"
         repo_name = "TestCI"
