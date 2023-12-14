@@ -1,5 +1,5 @@
 """
-Luke Damkoehler for CCI Systems (10/30/2023): This script 
+Luke Damkoehler for CCI Systems (12/14/2023): This script 
 posts the contents of utils/workflows/pr_checklist.txt as a
 comment on a PR. It is meant to be called by a GitHub workflow
 job. Needed environmental variables will only be available in 
