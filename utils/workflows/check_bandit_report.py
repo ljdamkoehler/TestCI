@@ -51,7 +51,7 @@ def main():
         }
         print(pr_str)
         payload = {
-            "body": f"### Bandit Security Issues \n {pr_str}",
+            "body": f"### Bandit Security Issues ```\n{pr_str}\n```",
             "content_type": "text"
         }
 
