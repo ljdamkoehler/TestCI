@@ -47,11 +47,12 @@ def main():
         url = f"{base_url}/{repo_owner}/{repo_name}/issues/{pr_number}/comments"
         headers = {
         "Authorization": f"token {os.getenv('GITHUB_TOKEN')}",
-        "Content-Type": "text"
+        "Accept": "application/vnd.github.v3+json"
         }
         print(pr_str)
         payload = {
-            "body": pr_str
+            "body": f"```\n{pr_str}\n```",
+            "content_type": "text"
         }
 
         response = requests.post(url, headers=headers, json=payload)
