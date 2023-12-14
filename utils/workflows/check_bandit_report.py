@@ -31,8 +31,8 @@ def main():
             f"Filename: {result['filename']}",
             f"Line: {result['line_number']}",
             f"Issue: {result['issue_text']}",
-            f"Issue Link: {result['link']}",
-            f"Bandit Link: {result['more_info']}",
+            f"Issue Link: {result.get('link', 'None')}",
+            f"Bandit Link: {result.get('link', 'None')}",
             '-----------------------'
         )
         bandit_issue_list.append(bandit_issue_tuple)
