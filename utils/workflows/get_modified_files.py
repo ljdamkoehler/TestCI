@@ -10,8 +10,10 @@ STATUSES_TO_CHECK = ['added', 'modified']
 
 def get_modified_python_files():
     event_path = os.environ['GITHUB_EVENT_PATH']
-    print('EVENT PATH!!!')
-    print(event_path)
+    # print('EVENT PATH!!!')
+    # print(event_path)
+    print('Here!!!!')
+    print(os.environ['GITHUB_REF'])
     with open(event_path, 'r') as f:
         event_data = json.load(f)
 
