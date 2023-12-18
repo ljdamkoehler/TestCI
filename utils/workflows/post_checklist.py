@@ -23,6 +23,8 @@ def main():
     # The PR number needs to be included as the first script arg when calling this script.
     try:
         pr_number = sys.argv[1]
+        print('Here!!!!')
+        print(os.environ['GITHUB_REF'])
     except Exception as e:
         raise Exception ('The PR number needs to be included as the first script arg when calling this script')
     # Open the text file containing the checklist.

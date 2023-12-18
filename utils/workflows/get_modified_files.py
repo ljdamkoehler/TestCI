@@ -6,6 +6,8 @@ import os
 import json
 import requests
 
+STATUSES_TO_CHECK = ['added', 'modified']
+
 def get_modified_python_files():
     event_path = os.environ['GITHUB_EVENT_PATH']
     print('EVENT PATH!!!')
@@ -19,7 +21,7 @@ def get_modified_python_files():
     response = requests.get(files_url)
     print('THE JSON!!!')
     print(response.json())
-    modified_files = [f['filename'] for f in response.json() if f['filename'].endswith('.py')]
+    modified_files = [f['filename'] for f in response.json() if f['filename'].endswith('.py') and f['status'] in STATUSES_TO_CHECK]
     return modified_files
 
 if __name__ == "__main__":
