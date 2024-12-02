@@ -1,0 +1,19 @@
+name: Check Version Update
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check if _version.py is updated
+        run: |
+          if ! git diff --name-only origin/main...HEAD | grep -q '_version.py'; then
+            echo "Error: _version.py file must be updated in this pull request."
+            exit 1
+          fi
