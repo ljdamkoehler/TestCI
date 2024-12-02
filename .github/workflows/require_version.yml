@@ -11,12 +11,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Fetch main branch
-        run: git fetch origin main
-
       - name: Check if _version.py is updated
         run: |
-          if ! git diff --name-only origin/main...HEAD | grep -q 'test_utils/_version.py'; then
+          CHANGED_FILES=$(jq -r '.pull_request.changed_files' "$GITHUB_EVENT_PATH")
+          if ! echo "$CHANGED_FILES" | grep -q 'test_utils/_version.py'; then
             echo "Error: _version.py file must be updated in this pull request."
-            exit 1
-          fi
+            ex
