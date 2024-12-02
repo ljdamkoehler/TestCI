@@ -1,0 +1,26 @@
+# Luke Damkoehler for CCI Systems (12/14/2023):
+# This pipeline calls a python script that will pass 
+# if all items in the code review checklist are checked.
+# Otherwise it will fail.
+
+name: Check Code Review Checklist
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  check-checklist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Check Checklist Items
+        run: |
+          python utils/workflows/check_pr_checklist.py ${{ github.event.pull_request.number }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

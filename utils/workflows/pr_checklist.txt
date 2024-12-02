@@ -1,0 +1,22 @@
+## Code Review Checklist
+
+Please consider each item on this list before approving this pull request.
+Check each item when done or if not applicable. The PR cannot be merged until each item is checked.
+
+### General Review
+- [ ] Does the PR have an issue linked in the description and does it meet the acceptance criteria listed in that issue?
+- [ ] Have new dependencies been audited for vulnerabilities?
+### Documentation Review
+- [ ] Is the code well-documented? 
+- [ ] Does it have a module docstring and function docstrings? 
+- [ ] Does it have type hints? 
+- [ ] Are necessary updates to relevant readmes included?
+### Static Review
+- [ ] Does the code follow PEP-8 and RPA Team formatting standards?
+- [ ] Can any of the changes be made more efficient?
+- [ ] Can any of the changes be re-factored to avoid duplication?
+- [ ] Can any of the changes belong in a different file or folder?
+### Dynamic Review
+- [ ] You were able to test the code and make sure it successfully fulfills new requirements
+- [ ] You were able to test the code and make sure it successfully fulfills new requirements
+- [ ] You tested with different edge cases to try and "break" the code
