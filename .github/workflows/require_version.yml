@@ -14,6 +14,7 @@ jobs:
       - name: Check if _version.py is updated
         run: |
           CHANGED_FILES=$(jq -r '.pull_request.changed_files' "$GITHUB_EVENT_PATH")
+          echo "Changed files: $CHANGED_FILES"
           if ! echo "$CHANGED_FILES" | grep -q 'test_utils/_version.py'; then
             echo "Error: _version.py file must be updated in this pull request."
             exit 1
