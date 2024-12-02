@@ -1,0 +1,38 @@
+name: Check Version Update
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  check_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get list of changed files
+        id: changed_files
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+            });
+            console.log("Changed files:", files.map(file => file.filename));
+            return files.map(file => file.filename);
+
+      - name: Print changed files
+        run: |
+            echo "Changed files: ${{ steps.changed_files.outputs.result }}"
+
+      - name: Check if _version.py is updated
+        run: |
+          if ! echo "${{ steps.changed_files.outputs.result }}" | grep -q 'test_utils/_version.py'; then
+            echo "Error: _version.py file must be updated in this pull request."
+            exit 1
+          else
+            echo "_version.py file is updated in this pull request."
+          fi
