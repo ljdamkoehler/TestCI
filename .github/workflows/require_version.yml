@@ -25,7 +25,8 @@ jobs:
             return files.map(file => file.filename);
 
       - name: Print changed files
-        run: echo "Changed files: ${{ steps.changed_files.outputs.result }}"
+        run: |
+            echo "Changed files: ${{ steps.changed_files.outputs.result }}"
 
       - name: Check if _version.py is updated
         run: |
