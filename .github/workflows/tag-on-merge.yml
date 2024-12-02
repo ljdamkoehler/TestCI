@@ -1,0 +1,32 @@
+name: Tag on Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  tag:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.name 'github-actions'
+          git config --global user.email 'github-actions@github.com'
+
+      - name: Extract version
+        id: extract_version
+        run: |
+          VERSION=$(grep -oP '(?<=__version__ = ")[^"]*' _version.py)
+          FORMATTED_VERSION=$(echo $VERSION | tr '.' '_')
+          echo "::set-output name=tag_name::v$FORMATTED_VERSION"
+
+      - name: Create Tag
+        env:
+          TAG_NAME: ${{ steps.extract_version.outputs.tag_name }}
+        run: |
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
