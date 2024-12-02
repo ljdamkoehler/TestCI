@@ -35,3 +35,4 @@ jobs:
             exit 1
           else
             echo "_version.py file is updated in this pull request."
+          fi
