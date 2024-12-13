@@ -27,6 +27,9 @@ jobs:
       - name: Debug - Print Tag Name
         run: echo "Tag name is ${{ steps.extract_version.outputs.tag_name }}"
 
+      - name: Fetch all tags
+        run: git fetch --tags
+
       - name: Check if Tag Exists
         env:
           TAG_NAME: ${{ steps.extract_version.outputs.tag_name }}
