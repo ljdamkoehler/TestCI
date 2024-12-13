@@ -47,6 +47,7 @@ jobs:
         run: |
           if git rev-parse $TAG_NAME >/dev/null 2>&1; then
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} :refs/tags/$TAG_NAME
+            git tag -d $TAG_NAME
           fi
 
       - name: Wait for tag deletion to propagate
