@@ -49,6 +49,12 @@ jobs:
             git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} :refs/tags/$TAG_NAME
           fi
 
+      - name: Wait for tag deletion to propagate
+        run: sleep 10
+
+      - name: Fetch all tags again
+        run: git fetch --tags
+
       - name: Create and Push Tag
         env:
           TAG_NAME: ${{ steps.extract_version.outputs.tag_name }}
