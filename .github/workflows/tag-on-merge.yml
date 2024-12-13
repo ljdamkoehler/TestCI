@@ -20,7 +20,7 @@ jobs:
       - name: Extract version
         id: extract_version
         run: |
-          VERSION=$(grep -oP '(?<=__version__ = ")[^"]*' rpa_utilities/_version.py)
+          VERSION=$(grep -oP '(?<=__version__ = ")[^"]*' test_utils/_version.py)
           FORMATTED_VERSION=$(echo $VERSION | tr '.' '_')
           echo "::set-output name=tag_name::v$FORMATTED_VERSION"
 
