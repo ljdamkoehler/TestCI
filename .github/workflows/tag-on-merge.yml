@@ -17,12 +17,21 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
 
-      - name: Extract version
+      - name: Extract major version
         id: extract_version
         run: |
           VERSION=$(grep -oP '(?<=__version__ = ")[^"]*' test_utils/_version.py)
-          FORMATTED_VERSION=$(echo $VERSION | tr '.' '_')
-          echo "::set-output name=tag_name::v$FORMATTED_VERSION"
+          MAJOR_VERSION=$(echo $VERSION | cut -d. -f1)
+          echo "::set-output name=tag_name::v$MAJOR_VERSION"
+
+      - name: Delete existing tag if it exists
+        env:
+          TAG_NAME: ${{ steps.extract_version.outputs.tag_name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git rev-parse $TAG_NAME >/dev/null 2>&1; then
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} :refs/tags/$TAG_NAME
+          fi
 
       - name: Create and Push Tag
         env:
