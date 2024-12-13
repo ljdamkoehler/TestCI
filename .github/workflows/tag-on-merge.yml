@@ -24,6 +24,19 @@ jobs:
           MAJOR_VERSION=$(echo $VERSION | cut -d. -f1)
           echo "::set-output name=tag_name::v$MAJOR_VERSION"
 
+      - name: Debug - Print Tag Name
+        run: echo "Tag name is ${{ steps.extract_version.outputs.tag_name }}"
+
+      - name: Check if Tag Exists
+        env:
+          TAG_NAME: ${{ steps.extract_version.outputs.tag_name }}
+        run: |
+          if git rev-parse $TAG_NAME >/dev/null 2>&1; then
+            echo "Tag $TAG_NAME exists"
+          else
+            echo "Tag $TAG_NAME does not exist"
+          fi
+
       - name: Delete existing tag if it exists
         env:
           TAG_NAME: ${{ steps.extract_version.outputs.tag_name }}
